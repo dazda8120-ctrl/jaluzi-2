@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Жалюзи — салон-магазин в Тирасполе</title>
+  <meta name="description" content="Салон-магазин «Жалюзи» в Тирасполе. Горизонтальные и вертикальные жалюзи, рулонные шторы, день-ночь, роллеты. Замер и установка под размеры окон.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f5f2;
+      --bg-warm: #f0ebe3;
+      --surface: #ffffff;
+      --text: #1c1c1c;
+      --text-soft: #6b6560;
+      --accent: #2a2a2a;
+      --accent-soft: #3d3d3d;
+      --clay: #b8956c;
+      --clay-dark: #9a7a54;
+      --clay-light: #e8dcc8;
+      --border: #e5dfd6;
+      --shadow: 0 4px 24px rgba(0,0,0,0.05);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.08);
+      --radius: 10px;
+      --radius-lg: 16px;
+      --font: 'Manrope', system-ui, -apple-system, sans-serif;
+      --max: 1180px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font-family: inherit; }
+
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(247,245,242,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .header.scrolled {
+      background: rgba(255,255,255,0.96);
+      border-color: var(--border);
+    }
+    .header-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 28px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+    }
+    .nav {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+    .nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-soft);
+      transition: color 0.2s;
+    }
+    .nav a:hover { color: var(--accent); }
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--clay);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--clay-dark);
+      transform: translateY(-1px);
+    }
+    .btn-dark {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-dark:hover {
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      background: rgba(0,0,0,0.02);
+    }
+    .btn-header {
+      background: var(--clay);
+      color: #fff;
+      padding: 10px 20px;
+    }
+    .btn-header:hover { background: var(--clay-dark); }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      width: 40px; height: 40px;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+    }
+    .menu-toggle span {
+      display: block;
+      height: 1.5px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .hero {
+      padding: 100px 28px 0;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 48px;
+      align-items: center;
+      min-height: calc(100vh - 100px);
+      padding-bottom: 60px;
+    }
+    .hero-text h1 {
+      font-size: clamp(2.2rem, 4.2vw, 3.35rem);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .hero-text p {
+      font-size: 1.08rem;
+      color: var(--text-soft);
+      max-width: 420px;
+      margin-bottom: 32px;
+      line-height: 1.65;
+    }
+    .hero-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .hero-meta {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+    }
+    .hero-meta-item {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+    }
+    .hero-meta-item strong {
+      display: block;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+    .hero-visual {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      max-height: 620px;
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-chip {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      padding: 14px 18px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      max-width: 200px;
+    }
+    .hero-chip strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--accent);
+    }
+    .hero-chip span {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      line-height: 1.4;
+    }
+
+    section { padding: 88px 28px; }
+    .container { max-width: var(--max); margin: 0 auto; }
+    .section-header {
+      max-width: 560px;
+      margin-bottom: 48px;
+    }
+    .section-header.center {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-header h2 {
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+    .section-header p {
+      color: var(--text-soft);
+      font-size: 1.02rem;
+    }
+
+    .products { background: var(--surface); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .product-card {
+      background: var(--bg);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid transparent;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border);
+    }
+    .product-card-img {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+    .product-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-card-img img {
+      transform: scale(1.04);
+    }
+    .product-card-body {
+      padding: 22px 22px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+    .product-card p {
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      flex: 1;
+      margin-bottom: 16px;
+      line-height: 1.55;
+    }
+    .product-price {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--clay);
+      margin-bottom: 14px;
+    }
+    .product-card .btn {
+      width: 100%;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      color: var(--accent);
+    }
+    .product-card .btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .about { background: var(--bg); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .about-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 5/6;
+      box-shadow: var(--shadow-lg);
+    }
+    .about-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .about-content h2 {
+      font-size: clamp(1.7rem, 2.8vw, 2.15rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      color: var(--accent);
+    }
+    .about-content > p {
+      color: var(--text-soft);
+      margin-bottom: 32px;
+      font-size: 1.02rem;
+    }
+    .features { display: flex; flex-direction: column; gap: 22px; }
+    .feature { display: flex; gap: 16px; align-items: flex-start; }
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--clay-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--clay-dark);
+    }
+    .feature-icon svg { width: 20px; height: 20px; }
+    .feature h4 {
+      font-weight: 600;
+      margin-bottom: 3px;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+    .feature p { color: var(--text-soft); font-size: 0.9rem; }
+
+    .gallery { background: var(--surface); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .gallery-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 1;
+    }
+    .gallery-item:nth-child(1) {
+      grid-column: span 2;
+      aspect-ratio: 16/10;
+    }
+    .gallery-item:nth-child(4) {
+      grid-column: span 2;
+      aspect-ratio: 16/10;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.03); }
+
+    .order { background: var(--bg-warm); }
+    .order-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .order-info {
+      padding: 48px 40px;
+      background: var(--accent);
+      color: #fff;
+    }
+    .order-info h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .order-info > p {
+      opacity: 0.82;
+      margin-bottom: 36px;
+      font-size: 0.98rem;
+    }
+    .order-contacts { display: flex; flex-direction: column; gap: 20px; }
+    .order-contact { display: flex; gap: 14px; align-items: flex-start; }
+    .order-contact svg {
+      width: 20px; height: 20px;
+      flex-shrink: 0;
+      opacity: 0.75;
+      margin-top: 2px;
+    }
+    .order-contact a { color: #fff; font-weight: 500; }
+    .order-contact a:hover { opacity: 0.85; }
+    .order-contact span {
+      display: block;
+      font-size: 0.82rem;
+      opacity: 0.6;
+      margin-top: 2px;
+    }
+    .order-form-wrap { padding: 48px 40px; }
+    .order-form-wrap h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
+    .order-form-wrap > p {
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      margin-bottom: 28px;
+    }
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--text-soft);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background: var(--bg);
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--clay);
+      box-shadow: 0 0 0 3px rgba(184,149,108,0.15);
+    }
+    .form-group textarea { min-height: 96px; resize: vertical; }
+    .form-submit {
+      width: 100%;
+      margin-top: 8px;
+      padding: 14px;
+      font-size: 0.95rem;
+      background: var(--clay);
+      color: #fff;
+    }
+    .form-submit:hover { background: var(--clay-dark); }
+
+    .contacts { background: var(--surface); }
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .contacts-map {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+    .contacts-map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .contacts-info h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 28px;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    .contact-block { margin-bottom: 20px; }
+    .contact-block h4 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-soft);
+      margin-bottom: 5px;
+    }
+    .contact-block p,
+    .contact-block a {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+    .contact-block a:hover { color: var(--clay); }
+    .contacts-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .footer {
+      background: var(--accent);
+      color: rgba(255,255,255,0.65);
+      padding: 36px 28px;
+      text-align: center;
+      font-size: 0.88rem;
+    }
+    .footer a { color: #fff; }
+    .footer a:hover { opacity: 0.85; }
+    .footer-logo {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #fff;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .float-cta {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .float-cta .btn {
+      box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+      padding: 13px 18px;
+      font-size: 0.85rem;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 960px) {
+      .nav { display: none; }
+      .menu-toggle { display: flex; }
+      .nav.open {
+        display: flex;
+        position: absolute;
+        top: 68px; left: 0; right: 0;
+        background: var(--surface);
+        flex-direction: column;
+        padding: 20px 28px 28px;
+        gap: 14px;
+        border-bottom: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+        min-height: auto;
+        padding: 40px 0 48px;
+      }
+      .hero-visual {
+        aspect-ratio: 4/3;
+        max-height: 420px;
+        order: -1;
+      }
+      .hero-chip { display: none; }
+      .about-grid,
+      .order-inner,
+      .contacts-grid { grid-template-columns: 1fr; }
+      .about-img { aspect-ratio: 16/10; max-height: 340px; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(4) { grid-column: span 2; }
+      .order-info, .order-form-wrap { padding: 32px 24px; }
+      section { padding: 64px 20px; }
+      .hero { padding: 80px 20px 0; }
+    }
+    @media (max-width: 560px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(4) {
+        grid-column: span 1;
+        aspect-ratio: 4/3;
+      }
+      .hero-btns { flex-direction: column; }
+      .hero-btns .btn { width: 100%; }
+      .float-cta { bottom: 14px; right: 14px; }
+      .header-inner { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Жалюзи</a>
+      <nav class="nav" id="nav">
+        <a href="#products">Каталог</a>
+        <a href="#about">О салоне</a>
+        <a href="#gallery">Работы</a>
+        <a href="#order">Заявка</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <div class="header-actions">
+        <a href="tel:+37377788884" class="btn btn-header">Позвонить</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Меню">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-text fade-up">
+        <h1>Жалюзи и шторы<br>под ваши окна</h1>
+        <p>Горизонтальные, вертикальные, рулонные, «день-ночь» и роллеты. Изготовление по размерам, замер и установка в Тирасполе.</p>
+        <div class="hero-btns">
+          <a href="#order" class="btn btn-primary">Оставить заявку</a>
+          <a href="tel:+37377788884" class="btn btn-outline">Позвонить</a>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <strong>ул. К. Маркса, 86</strong>
+            Тирасполь
+          </div>
+          <div class="hero-meta-item">
+            <strong>0777 88-884</strong>
+            Основной телефон
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual fade-up">
+        <img src="https://images.unsplash.com/photo-1754613389131-ea9b5f234cda?auto=format&fit=crop&w=1200&q=85" alt="Современный интерьер с шторами" width="1200" height="1500">
+        <div class="hero-chip">
+          <strong>Подбор под интерьер</strong>
+          <span>Поможем выбрать тип и цвет под ваши окна</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section-header center fade-up">
+        <h2>Ассортимент</h2>
+        <p>Подбираем решение под тип окна, стиль интерьера и задачи по свету и приватности.</p>
+      </div>
+      <div class="products-grid">
+        <article class="product-card fade-up">
+          <div class="product-card-img">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="Горизонтальные алюминиевые жалюзи" loading="lazy" width="800" height="600">
+          </div>
+          <div class="product-card-body">
+            <h3>Горизонтальные алюминиевые</h3>
+            <p>Классика для квартир и офисов. Точная регулировка света, долговечность и простой уход.</p>
+            <div class="product-price">Цена по запросу</div>
+            <a href="#order" class="btn" data-product="Горизонтальные алюминиевые жалюзи">Заказать</a>
+          </div>
+        </article>
+        <article class="product-card fade-up">
+          <div class="product-card-img">
+            <img src="https://images.unsplash.com/photo-1711873317817-cd40a60ef558?auto=format&fit=crop&w=800&q=80" alt="Вертикальные тканевые жалюзи" loading="lazy" width="800" height="600">
+          </div>
+          <div class="product-card-body">
+            <h3>Вертикальные тканевые</h3>
+            <p>Для широких проёмов и панорамных окон. Мягкий свет и аккуратный силуэт.</p>
+            <div class="product-price">Цена по запросу</div>
+            <a href="#order" class="btn" data-product="Вертикальные тканевые жалюзи">Заказать</a>
+          </div>
+        </article>
+        <article class="product-card fade-up">
+          <div class="product-card-img">
+            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80" alt="Рулонные шторы" loading="lazy" width="800" height="600">
+          </div>
+          <div class="product-card-body">
+            <h3>Рулонные шторы</h3>
+            <p>Минималистичный вид, большой выбор тканей — от лёгких до полного затемнения.</p>
+            <div class="product-price">Цена по запросу</div>
+            <a href="#order" class="btn" data-product="Рулонные шторы">Заказать</a>
+          </div>
+        </article>
+        <article class="product-card fade-up">
+          <div class="product-card-img">
+            <img src="https://images.unsplash.com/photo-1754613389131-ea9b5f234cda?auto=format&fit=crop&w=800&q=80" alt="Шторы День-Ночь" loading="lazy" width="800" height="600">
+          </div>
+          <div class="product-card-body">
+            <h3>Шторы «День-Ночь»</h3>
+            <p>Чередование прозрачных и плотных полос. Удобно менять освещённость в течение дня.</p>
+            <div class="product-price">Цена по запросу</div>
+            <a href="#order" class="btn" data-product="Шторы День-Ночь">Заказать</a>
+          </div>
+        </article>
+        <article class="product-card fade-up">
+          <div class="product-card-img">
+            <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Роллеты" loading="lazy" width="800" height="600">
+          </div>
+          <div class="product-card-body">
+            <h3>Роллеты</h3>
+            <p>Практичная защита от солнца и взглядов. Подходят для дома и коммерческих помещений.</p>
+            <div class="product-price">Цена по запросу</div>
+            <a href="#order" class="btn" data-product="Роллеты">Заказать</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img fade-up">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80" alt="Интерьер с жалюзи" loading="lazy" width="900" height="1080">
+        </div>
+        <div class="about-content fade-up">
+          <h2>Салон-магазин «Жалюзи» в Тирасполе</h2>
+          <p>Изготавливаем жалюзи и шторы строго под размеры ваших окон. Замер, подбор и установка — полный цикл в одном месте.</p>
+          <div class="features">
+            <div class="feature">
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/>
+                  <path d="M7 3v18"/><path d="M17 3v18"/>
+                </svg>
+              </div>
+              <div>
+                <h4>Под размеры окон</h4>
+                <p>Каждое изделие делается индивидуально — без стандартных «примерно».</p>
+              </div>
+            </div>
+            <div class="feature">
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                </svg>
+              </div>
+              <div>
+                <h4>Замер и установка</h4>
+                <p>Приезжаем, замеряем, изготавливаем и аккуратно монтируем.</p>
+              </div>
+            </div>
+            <div class="feature">
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+              </div>
+              <div>
+                <h4>Разные типы систем</h4>
+                <p>Алюминий, ткань, рулонные, день-ночь, роллеты — подберём подходящий вариант.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="section-header center fade-up">
+        <h2>Интерьеры</h2>
+        <p>Как жалюзи и шторы выглядят в современных пространствах.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item fade-up">
+          <img src="https://images.unsplash.com/photo-1754613389131-ea9b5f234cda?auto=format&fit=crop&w=1200&q=80" alt="Гостиная с нейтральными шторами" loading="lazy" width="1200" height="750">
+        </div>
+        <div class="gallery-item fade-up">
+          <img src="https://images.unsplash.com/photo-1711873317817-cd40a60ef558?auto=format&fit=crop&w=800&q=80" alt="Вертикальные жалюзи" loading="lazy" width="800" height="800">
+        </div>
+        <div class="gallery-item fade-up">
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80" alt="Современная гостиная" loading="lazy" width="800" height="800">
+        </div>
+        <div class="gallery-item fade-up">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80" alt="Светлый интерьер" loading="lazy" width="1200" height="750">
+        </div>
+        <div class="gallery-item fade-up">
+          <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Окно с роллетами" loading="lazy" width="800" height="800">
+        </div>
+        <div class="gallery-item fade-up">
+          <img src="https://images.unsplash.com/photo-1766806997566-18b8999427bd?auto=format&fit=crop&w=800&q=80" alt="Ламели крупным планом" loading="lazy" width="800" height="800">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="order" id="order">
+    <div class="container">
+      <div class="order-inner fade-up">
+        <div class="order-info">
+          <h2>Оставить заявку</h2>
+          <p>Напишите, что нужно — откроется WhatsApp с готовым текстом. Заявки принимаем в любое время.</p>
+          <div class="order-contacts">
+            <div class="order-contact">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              <div>
+                <a href="tel:+37377788884">0777 88-884</a>
+                <span>Основной / WhatsApp</span>
+              </div>
+            </div>
+            <div class="order-contact">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              <div>
+                <a href="tel:+37368010728">0680 10-728</a>
+                <span>Дополнительный</span>
+              </div>
+            </div>
+            <div class="order-contact">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div>
+                <span style="opacity:1;font-weight:500;color:#fff">ул. К. Маркса, 86</span>
+                <span>Тирасполь</span>
+              </div>
+            </div>
+            <div class="order-contact">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <div>
+                <span style="opacity:1;font-weight:500;color:#fff">График работы</span>
+                <span>Уточняется</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="order-form-wrap">
+          <h3>Форма заявки</h3>
+          <p>После отправки откроется WhatsApp с готовым текстом — останется нажать «Отправить».</p>
+          <form id="orderForm">
+            <div class="form-group">
+              <label for="name">Ваше имя</label>
+              <input type="text" id="name" name="name" required placeholder="Как к вам обращаться">
+            </div>
+            <div class="form-group">
+              <label for="phone">Телефон</label>
+              <input type="tel" id="phone" name="phone" required placeholder="+373 XXX XX-XXX">
+            </div>
+            <div class="form-group">
+              <label for="product">Что нужно</label>
+              <select id="product" name="product">
+                <option value="">Выберите или укажите ниже</option>
+                <option value="Горизонтальные алюминиевые жалюзи">Горизонтальные алюминиевые</option>
+                <option value="Вертикальные тканевые жалюзи">Вертикальные тканевые</option>
+                <option value="Рулонные шторы">Рулонные шторы</option>
+                <option value="Шторы День-Ночь">Шторы «День-Ночь»</option>
+                <option value="Роллеты">Роллеты</option>
+                <option value="Другое / консультация">Другое / консультация</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="comment">Размеры или комментарий</label>
+              <textarea id="comment" name="comment" placeholder="Например: 2 окна 120×140, нужен замер, цвет светло-серый..."></textarea>
+            </div>
+            <button type="submit" class="btn form-submit">Отправить в WhatsApp</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contacts" id="contacts">
+    <div class="container">
+      <div class="contacts-grid">
+        <div class="contacts-map fade-up">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=29.615%2C46.835%2C29.645%2C46.855&amp;layer=mapnik&amp;marker=46.845%2C29.630"
+            loading="lazy"
+            title="Карта — Тирасполь, ул. К. Маркса, 86"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <div class="contacts-info fade-up">
+          <h2>Контакты</h2>
+          <div class="contact-block">
+            <h4>Адрес</h4>
+            <p>Тирасполь, ул. К. Маркса, 86</p>
+          </div>
+          <div class="contact-block">
+            <h4>Телефоны</h4>
+            <p><a href="tel:+37377788884">0777 88-884</a></p>
+            <p><a href="tel:+37368010728">0680 10-728</a></p>
+          </div>
+          <div class="contact-block">
+            <h4>WhatsApp</h4>
+            <p><a href="https://wa.me/37377788884" target="_blank" rel="noopener">0777 88-884</a></p>
+          </div>
+          <div class="contact-block">
+            <h4>График</h4>
+            <p>Уточняется</p>
+          </div>
+          <div class="contacts-btns">
+            <a href="https://www.openstreetmap.org/?mlat=46.845&mlon=29.630#map=17/46.845/29.630" class="btn btn-outline" target="_blank" rel="noopener">Открыть на карте</a>
+            <a href="tel:+37377788884" class="btn btn-primary">Позвонить</a>
+            <a href="https://wa.me/37377788884" class="btn btn-dark" target="_blank" rel="noopener">Написать</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-logo">Жалюзи</div>
+    <p>Салон-магазин жалюзи и штор · Тирасполь, ул. К. Маркса, 86</p>
+    <p style="margin-top:8px"><a href="tel:+37377788884">0777 88-884</a> · <a href="tel:+37368010728">0680 10-728</a></p>
+  </footer>
+
+  <div class="float-cta">
+    <a href="https://wa.me/37377788884" class="btn btn-dark" target="_blank" rel="noopener">Написать</a>
+    <a href="tel:+37377788884" class="btn btn-primary">Позвонить</a>
+  </div>
+
+  <script>
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 30);
+    });
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.getElementById('nav');
+    menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+    document.querySelectorAll('[data-product]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const product = btn.getAttribute('data-product');
+        const select = document.getElementById('product');
+        if (select) {
+          for (let opt of select.options) {
+            if (opt.value === product) { select.value = product; break; }
+          }
+        }
+      });
+    });
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const product = document.getElementById('product').value;
+      const comment = document.getElementById('comment').value.trim();
+      let text = 'Здравствуйте! Заявка с сайта «Жалюзи».%0A%0A';
+      text += 'Имя: ' + encodeURIComponent(name) + '%0A';
+      text += 'Телефон: ' + encodeURIComponent(phone) + '%0A';
+      if (product) text += 'Интересует: ' + encodeURIComponent(product) + '%0A';
+      if (comment) text += 'Комментарий / размеры: ' + encodeURIComponent(comment) + '%0A';
+      window.open('https://wa.me/37377788884?text=' + text, '_blank');
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
